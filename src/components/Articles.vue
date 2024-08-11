@@ -50,24 +50,41 @@ onMounted(() => {
   fetchArticles();
 });
 </script>
+
+
 <template>
-    <div>
-      <h1>Articles</h1>
-      <p>Total Articles: {{ count }}</p>
-      <div v-if="previous">
-        <button @click="fetchArticles(offset - limit)">Previous</button>
-      </div>
-      <div v-if="next">
-        <button @click="fetchArticles(offset + limit)">Next</button>
-      </div>
-      <ul>
-        <li v-for="article in articles" :key="article.id">
-          <h2>{{ article.title }}</h2>
-          <a :href="article.url" target="_blank">Read More</a>
-          <img :src="article.image_url" alt="Article Image" />
-          <p>{{ article.summary }}</p>
-        </li>
-      </ul>
+  <div class="p-4">
+    <h1 class="text-xl font-bold mb-4">Articles</h1>
+    <p>Total Articles: {{ count }}</p>
+    <div class="mb-4">
+      <button
+        v-if="previous"
+        @click="fetchArticles(offset - limit)"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Previous
+      </button>
+      <button
+        v-if="next"
+        @click="fetchArticles(offset + limit)"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+      >
+        Next
+      </button>
     </div>
-  </template>
+    <ul class="space-y-4 overflow-y-auto max-h-96">
+      <li v-for="article in articles" :key="article.id" class="border p-4 rounded-lg">
+        <h2 class="text-lg font-semibold mb-2">{{ article.title }}</h2>
+        <a :href="article.url" target="_blank" class="text-blue-600 hover:underline">Read More</a>
+        <img
+          :src="article.image_url"
+          alt="Article Image"
+          class="w-full h-48 object-cover mt-2 rounded-lg"
+        />
+        <p class="mt-2 text-gray-700">{{ article.summary }}</p>
+      </li>
+    </ul>
+  </div>
+</template>
+
   
