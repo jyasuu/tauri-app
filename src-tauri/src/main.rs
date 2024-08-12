@@ -17,15 +17,15 @@ struct Article {
     published_at: String,
     updated_at: String,
     featured: bool,
-    launches: Vec<String>,
-    events: Vec<String>,
+    // launches: Vec<String>,
+    // events: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ApiResponse {
     count: u32,
-    next: Option<String>,
-    previous: Option<String>,
+    // next: Option<String>,
+    // previous: Option<String>,
     results: Vec<Article>,
 }
 
@@ -36,12 +36,23 @@ async fn fetch_articles(limit: u32, offset: u32) -> Result<ApiResponse, String> 
         limit, offset
     );
 
+    // let body = reqwest::get(&api_url)
+    //     .await
+    //     .map_err(|e| e.to_string())?
+    //     .text()
+    //     .await;
+
+    // println!("body = {body:?}");
+
     let response = reqwest::get(&api_url)
         .await
         .map_err(|e| e.to_string())?
         .json::<ApiResponse>()
         .await
         .map_err(|e| e.to_string())?;
+
+    
+    // println!("count: {}", response.count);
 
     Ok(response)
 }
